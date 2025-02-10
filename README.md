@@ -92,9 +92,3 @@ To deploy the project, build the application and serve it using **Vercel, Netlif
 ```sh
 npm run build
 ```
-
-## License
-This project is licensed under the MIT License.
-
-## Author
-[Your Name]
