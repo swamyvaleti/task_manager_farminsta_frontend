@@ -28,8 +28,6 @@ export const ToastContextProvider = ({
     description?: string;
     variant?: "default" | "destructive";
   }) => {
-    console.log(toast, "toast<--");
-
     const id = Date.now();
     setToasts([...toasts, { id, ...toast }]);
 

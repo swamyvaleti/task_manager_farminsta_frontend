@@ -18,7 +18,7 @@ const authSchema = z.object({
 
 interface AuthFormProps {
   onLogin: (email: string, password: string) => Promise<void>;
-  onRegister: (email: string, password: string, name: string) => Promise<void>;
+  onRegister: (email: string, password: string, name: string) => any;
 }
 
 export function AuthForm({ onLogin, onRegister }: AuthFormProps) {
@@ -62,25 +62,14 @@ export function AuthForm({ onLogin, onRegister }: AuthFormProps) {
     try {
       if (isLogin) {
         await onLogin(email, password);
-
-        // Redirect after successful login
-        // router.push("/dashboard"); // Change to your intended route
       } else {
-        await onRegister(email, password, name);
-
-        console.log("came here2<-");
-
-        toast({
-          title: "Registration successful!",
-          description: "Please sign in with your new account",
-          className: "bg-green-500 text-white",
-        });
-
-        // Switch to login form after successful registration
-        setIsLogin(true);
-        setEmail("");
-        setPassword("");
-        setName("");
+        let res: any = await onRegister(email, password, name);
+        if (res) {
+          setIsLogin(true);
+          setEmail("");
+          setPassword("");
+          setName("");
+        }
       }
     } catch (error) {
       const errorMessage =

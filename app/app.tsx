@@ -10,7 +10,6 @@ import { useToast } from "./context/use-toast";
 import { LogOut } from "lucide-react";
 import { ToastProvider } from "@/components/ui/toast";
 
-
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [user, setUser] = useState<{ token: string; name: string } | null>(
@@ -18,19 +17,21 @@ export default function App() {
   );
   const { toast } = useToast();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userName = localStorage.getItem("userName");
+  const useEffectWithTypes = () => {
+    const token: string | null = localStorage.getItem("token");
+    const userName: string | null = localStorage.getItem("userName");
     if (token && userName) {
       setUser({ token, name: userName });
       fetchTasks(token);
     }
-  }, []);
+  };
+
+  useEffect(useEffectWithTypes, []);
 
   const fetchTasks = async (token: string) => {
     try {
       const response = await fetch(
-        "https://task-manager-farminsta-backend.onrender.com/api/tasks",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/tasks`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -49,7 +50,7 @@ export default function App() {
   const handleLogin = async (email: string, password: string) => {
     try {
       const response = await fetch(
-        "https://task-manager-farminsta-backend.onrender.com/api/auth/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
@@ -71,7 +72,6 @@ export default function App() {
         });
         return;
       } else {
-        console.log("came error part<--");
         toast({
           title: "Error",
           description: "Invalid credentials",
@@ -80,7 +80,6 @@ export default function App() {
         return;
       }
     } catch (error) {
-      console.error("Login error:", error);
       toast({
         title: "Error",
         description: "An error occurred during login",
@@ -96,7 +95,8 @@ export default function App() {
   ) => {
     try {
       const response = await fetch(
-        "https://task-manager-farminsta-backend.onrender.com/api/auth/register",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+
         {
           method: "POST",
           headers: {
@@ -105,28 +105,27 @@ export default function App() {
           body: JSON.stringify({ email, password, name }),
         }
       );
-
       if (response.ok) {
-        console.log("came here2<-");
-
         toast({
           title: "Success",
           description: "Registration successful. Please login.",
         });
+        return true;
       } else {
         toast({
           title: "Error",
           description: "Registration failed",
           variant: "destructive",
         });
+        return false;
       }
     } catch (error) {
-      console.error("Registration error:", error);
       toast({
         title: "Error",
         description: "An error occurred during registration",
         variant: "destructive",
       });
+      return false;
     }
   };
 
@@ -135,8 +134,6 @@ export default function App() {
     localStorage.removeItem("userName");
     setUser(null);
     setTasks([]);
-    console.log("came here3<-");
-
     toast({
       title: "Success",
       description: "Logged out successfully",
@@ -148,7 +145,8 @@ export default function App() {
 
     try {
       const response = await fetch(
-        "https://task-manager-farminsta-backend.onrender.com/api/tasks",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/tasks`,
+
         {
           method: "POST",
           headers: {
@@ -162,7 +160,6 @@ export default function App() {
       if (response.ok) {
         const newTask = await response.json();
         setTasks([newTask, ...tasks]);
-        console.log("came here4<-");
 
         toast({
           title: "Success",
@@ -170,7 +167,6 @@ export default function App() {
         });
       }
     } catch (error) {
-      console.error("Error adding task:", error);
       toast({
         title: "Error",
         description: "Failed to add task",
@@ -184,7 +180,8 @@ export default function App() {
 
     try {
       const response = await fetch(
-        `https://task-manager-farminsta-backend.onrender.com/api/tasks/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/tasks/${id}`,
+
         {
           method: "PUT",
           headers: {
@@ -208,7 +205,6 @@ export default function App() {
         });
       }
     } catch (error) {
-      console.error("Error updating task:", error);
       toast({
         title: "Error",
         description: "Failed to update task",
@@ -222,7 +218,8 @@ export default function App() {
 
     try {
       const response = await fetch(
-        `https://task-manager-farminsta-backend.onrender.com/api/tasks/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/tasks/${id}`,
+
         {
           method: "PUT",
           headers: {
@@ -246,12 +243,12 @@ export default function App() {
   };
 
   const deleteTask = async (id: string) => {
-    console.log(id, "id<--");
     if (!user?.token) return;
 
     try {
       const response = await fetch(
-        `https://task-manager-farminsta-backend.onrender.com/api/tasks/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/tasks/${id}`,
+
         {
           method: "DELETE",
           headers: {
@@ -268,7 +265,6 @@ export default function App() {
         });
       }
     } catch (error) {
-      console.error("Error deleting task:", error);
       toast({
         title: "Error",
         description: "Failed to delete task",
