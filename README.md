@@ -1,66 +1,100 @@
-# Task Manager Backend
+# Task Manager Frontend
 
-RESTful API for the Task Manager application built with Node.js, Express, and MongoDB.
+## Description
+Task Manager is a web-based application that allows users to manage their tasks efficiently. It provides user authentication, task creation, updating, deletion, and status tracking. This frontend is built using **React.js** and communicates with the Task Manager API.
 
 ## Features
+- User authentication (Login & Registration)
+- Create, edit, delete, and mark tasks as complete
+- Responsive UI built with React.js
+- API integration with backend services
+- State management using React Hooks
+- Error handling and form validation
 
-- User authentication with JWT
-- CRUD operations for tasks
-- MongoDB integration
-- Protected routes
-- Input validation
-- Error handling
+## Tech Stack
+- **React.js** - Frontend framework
+- **Axios** - HTTP client for API requests
+- **React Router** - Navigation handling
+- **Tailwind CSS** - Styling framework
+- **Context API** - State management
 
-## Getting Started
+## Installation
 
-1. Clone the repository
+### Prerequisites
+- Node.js installed (latest LTS recommended)
+- Backend Task Manager API running
+
+### Steps to Setup
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repository/task-manager-frontend.git
+   cd task-manager-frontend
+   ```
+
 2. Install dependencies:
-```bash
-npm install
-```
+   ```sh
+   npm install
+   ```
 
-3. Create a `.env` file in the root directory:
-```
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-PORT=5000
-CORS_ORIGIN=http://localhost:3000
-```
+3. Create a `.env` file in the root directory and add the following:
+   ```env
+   REACT_APP_API_URL=http://localhost:5000/api
+   ```
 
 4. Start the development server:
-```bash
-npm run dev
+   ```sh
+   npm start
+   ```
+
+## Project Structure
 ```
-
-## API Endpoints
-
-### Authentication
-- POST `/api/auth/register` - Register a new user
-- POST `/api/auth/login` - Login user
-
-### Tasks
-- GET `/api/tasks` - Get all tasks (protected)
-- POST `/api/tasks` - Create a new task (protected)
-- PUT `/api/tasks/:id` - Update a task (protected)
-- DELETE `/api/tasks/:id` - Delete a task (protected)
-
-## Environment Variables
-
-- `MONGODB_URI`: MongoDB connection string
-- `JWT_SECRET`: Secret key for JWT
-- `PORT`: Server port (default: 5000)
-- `CORS_ORIGIN`: Allowed origin for CORS
+/task-manager-frontend
+│── /src
+│   ├── /components
+│   │   ├── TaskList.js
+│   │   ├── TaskItem.js
+│   ├── /pages
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   ├── Dashboard.js
+│   ├── /context
+│   │   ├── AuthContext.js
+│   ├── App.js
+│   ├── index.js
+│── .env (not included in repo)
+│── package.json
+```
 
 ## Available Scripts
 
-- `npm run dev`: Start development server with nodemon
-- `npm start`: Start production server
+- `npm start` - Runs the app in development mode
+- `npm run build` - Builds the app for production
 
-## Technologies Used
+## API Endpoints Used
+This frontend interacts with the **Task Manager API**:
 
-- Node.js
-- Express.js
-- MongoDB with Mongoose
-- JWT for authentication
-- bcryptjs for password hashing
-- cors for CORS handling
+### Authentication Routes
+| Method | Endpoint       | Description             |
+|--------|--------------|-------------------------|
+| POST   | `/api/auth/register` | Register a new user |
+| POST   | `/api/auth/login`    | Authenticate user and get token |
+
+### Task Routes (Protected)
+| Method | Endpoint       | Description             |
+|--------|--------------|-------------------------|
+| GET    | `/api/tasks`  | Get all tasks for the authenticated user |
+| POST   | `/api/tasks`  | Create a new task |
+| PUT    | `/api/tasks/:id` | Update an existing task |
+| DELETE | `/api/tasks/:id` | Delete a task |
+
+## Deployment
+To deploy the project, build the application and serve it using **Vercel, Netlify, or Firebase Hosting**:
+```sh
+npm run build
+```
+
+## License
+This project is licensed under the MIT License.
+
+## Author
+[Your Name]
