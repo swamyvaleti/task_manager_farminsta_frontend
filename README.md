@@ -1,9 +1,11 @@
 # Task Manager Frontend
 
 ## Description
+
 Task Manager is a web-based application that allows users to manage their tasks efficiently. It provides user authentication, task creation, updating, deletion, and status tracking. This frontend is built using **React.js** and communicates with the Task Manager API.
 
 ## Features
+
 - User authentication (Login & Registration)
 - Create, edit, delete, and mark tasks as complete
 - Responsive UI built with React.js
@@ -12,6 +14,7 @@ Task Manager is a web-based application that allows users to manage their tasks 
 - Error handling and form validation
 
 ## Tech Stack
+
 - **React.js** - Frontend framework
 - **Axios** - HTTP client for API requests
 - **React Router** - Navigation handling
@@ -21,24 +24,29 @@ Task Manager is a web-based application that allows users to manage their tasks 
 ## Installation
 
 ### Prerequisites
+
 - Node.js installed (latest LTS recommended)
 - Backend Task Manager API running
 
 ### Steps to Setup
+
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/your-repository/task-manager-frontend.git
    cd task-manager-frontend
    ```
 
 2. Install dependencies:
+
    ```sh
    npm install
    ```
 
 3. Create a `.env` file in the root directory and add the following:
+
    ```env
-   REACT_APP_API_URL=http://localhost:5000/api
+   NEXT_PUBLIC_API_URL=https://task-manager-farminsta-backend.onrender.com
    ```
 
 4. Start the development server:
@@ -47,6 +55,7 @@ Task Manager is a web-based application that allows users to manage their tasks 
    ```
 
 ## Project Structure
+
 ```
 /task-manager-frontend
 │── /src
@@ -71,24 +80,29 @@ Task Manager is a web-based application that allows users to manage their tasks 
 - `npm run build` - Builds the app for production
 
 ## API Endpoints Used
+
 This frontend interacts with the **Task Manager API**:
 
 ### Authentication Routes
-| Method | Endpoint       | Description             |
-|--------|--------------|-------------------------|
-| POST   | `/api/auth/register` | Register a new user |
+
+| Method | Endpoint             | Description                     |
+| ------ | -------------------- | ------------------------------- |
+| POST   | `/api/auth/register` | Register a new user             |
 | POST   | `/api/auth/login`    | Authenticate user and get token |
 
 ### Task Routes (Protected)
-| Method | Endpoint       | Description             |
-|--------|--------------|-------------------------|
-| GET    | `/api/tasks`  | Get all tasks for the authenticated user |
-| POST   | `/api/tasks`  | Create a new task |
-| PUT    | `/api/tasks/:id` | Update an existing task |
-| DELETE | `/api/tasks/:id` | Delete a task |
+
+| Method | Endpoint         | Description                              |
+| ------ | ---------------- | ---------------------------------------- |
+| GET    | `/api/tasks`     | Get all tasks for the authenticated user |
+| POST   | `/api/tasks`     | Create a new task                        |
+| PUT    | `/api/tasks/:id` | Update an existing task                  |
+| DELETE | `/api/tasks/:id` | Delete a task                            |
 
 ## Deployment
+
 To deploy the project, build the application and serve it using **Vercel, Netlify, or Firebase Hosting**:
+
 ```sh
 npm run build
 ```
